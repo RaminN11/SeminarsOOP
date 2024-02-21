@@ -2,32 +2,55 @@ package Seminar1;
 
 import java.util.Random;
 
-abstract class Pers {
+public abstract class Pers {
     protected static Random r;
-    protected int id;
+    protected int level;
     protected String name;
     protected int health;
+    protected int strength;
+    protected int agility;
     protected int stamina;
-    protected String weapon;
+    protected Boolean status;
+    protected Position position;
 
     static{
         Pers.r = new Random();
     }
-    protected Pers(int id, String name, int health, int stamina, String weapon) {
-        this.id = id;
+    public Pers(int level, String name, int health, int stamina,int strength,int agility, Boolean status,  Integer x, Integer y) {
+        this.level = 1;
         this.name = name;
-        this.health = health;
-        this.stamina = stamina;
-        this.weapon = weapon;
+        this.health = 100;
+        this.strength = 30;
+        this.agility = 20;
+        this.stamina = 50;
+        this.status = true;
+        this.position = new Position(x,y);
     }
 
+    public String getName(){
+        String str = new String(this.name);
+        return str;
+    }
+
+    public int getStamina(){
+        return stamina;
+    }
+
+    public Boolean getStatus(){
+        return status;
+    }
+
+    public int getHealth(){
+        return health;
+    }
+
+
     protected String getInfo() {
-        return String.format("Name: %s  Hp: %d  Type: %s",
-                this.name, this.health, this.getClass().getSimpleName());
+        return String.format("Name: %s  Hp: %d  Type: %s", this.name, this.health, this.getClass().getSimpleName());
     }
 
     protected void print() {
-        System.out.println("ID:  " + id + "Name: " + name + "Health: " + health + "Weapon" + weapon + "Stamina" + stamina);
+        System.out.println("Level:  " + level + "Name: " + name + "Health: " + health + "Stamina" + stamina);
 
     }
 
@@ -43,9 +66,6 @@ abstract class Pers {
 
     }
 
-    public int getHealth() {
-        return health;
-    }
 
     protected void death(Pers target){
         if (target.getHealth() <= 0){

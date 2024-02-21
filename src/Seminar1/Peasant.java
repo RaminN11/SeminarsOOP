@@ -1,18 +1,23 @@
 package Seminar1;
 
 public class Peasant extends Pers {
-    int strength;
-    int agility;
+    public Peasant(String name, Integer x, Integer y){
+        super(1,name,100,50,20,40,true,x,y);
+    }
 
-    protected Peasant(int id, String name, int health, int stamina, String weapon, int strength, int agility) {
-        super(id, name, health, stamina, weapon);
-        this.strength = strength;
-        this.agility = agility;
+    @Override
+    protected void GetDamage(int damage) {
+        super.GetDamage(damage);
+    }
+
+    @Override
+    protected void death(Pers target) {
+        super.death(target);
     }
 
     @Override
     public String toString() {
-        return String.format("%s, %s, ", getClass(), name);
+        return String.format("Class: %s  Name: %s", this.getClass().getSimpleName(), getName());
     }
 
     @Override

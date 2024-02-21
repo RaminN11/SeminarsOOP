@@ -1,19 +1,29 @@
 package Seminar1;
 
 public class Crossbowman extends Pers{
-    int amountOfBowns;
-    int accuracy;
 
+    public Crossbowman(String name, Integer x, Integer y){
+        super(1,name,100,50,30,20,true,x,y);
+    }
 
-    protected Crossbowman(int id, String name, int health, int stamina, String weapon, int amountOfBowns, int accuracy) {
-        super(id, name, health, stamina, weapon);
-        this.amountOfBowns = amountOfBowns;
-        this.accuracy = accuracy;
+    @Override
+    protected void death(Pers target) {
+        super.death(target);
+    }
+
+    @Override
+    protected void GetDamage(int damage) {
+        super.GetDamage(damage);
+    }
+
+    @Override
+    protected void attack(Pers target) {
+        super.attack(target);
     }
 
     @Override
     public String toString() {
-        return String.format("%s, %s, ", getClass(), name);
+        return String.format("Class: %s, Name: %s, ", this.getClass().getSimpleName(),getName());
     }
 
     @Override
