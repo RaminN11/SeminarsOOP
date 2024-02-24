@@ -1,8 +1,17 @@
 package Seminar1;
 
+import java.util.List;
+
 public class Peasant extends Pers {
     public Peasant(String name, Integer x, Integer y){
-        super(1,name,100,50,20,40,true,x,y);
+        super(name, x, y);
+        this.priority = 0;
+        this.health = 100;
+        this.agility = 20;
+        this.strength = 10;
+        this.status = true;
+        this.level = 1;
+        this.stamina = 25;
     }
 
     @Override
@@ -29,6 +38,11 @@ public class Peasant extends Pers {
 
     public void work(int hour) {
         stamina -= hour / 4;
+    }
+
+    @Override
+    public void step(List<Pers> targetTeam) {
+
     }
 
 }

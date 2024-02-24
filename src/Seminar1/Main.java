@@ -1,5 +1,13 @@
 package Seminar1;
 
+import Seminar1.Healers.Monk;
+import Seminar1.Healers.Wizard;
+import Seminar1.Shooters.Archers;
+import Seminar1.Shooters.Crossbowman;
+import Seminar1.Shooters.Sniper;
+import Seminar1.Warriors.Robber;
+import Seminar1.Warriors.Spearman;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -81,15 +89,6 @@ import java.util.Random;
  */
 public class Main {
     public static void main(String[] args) {
-        Sniper sniper = new Sniper(getName(),0,0);
-        Archer archer = new Archer(getName(),0,0);
-        Crossbowman crossbowman = new Crossbowman(getName(),0,0);
-        Monk monk = new Monk(getName(),0,0);
-        Peasant peasant = new Peasant(getName(),0,0);
-        Robber robber = new Robber(getName(),0,0);
-        Spearman spearman = new Spearman(getName(),0,0);
-        Wizard wizard = new Wizard(getName(),0,0);
-
 
         int teamCount = 10;
         List<Pers> team1 = new ArrayList<>();
@@ -98,27 +97,24 @@ public class Main {
         for (int i = 0; i < teamCount; i++) {
             switch (new Random().nextInt(1,8)){
                 case 1:
-                    team1.add(new Archer(getName(),i,0));
-                    break;
-                case 2:
                     team1.add(new Robber(getName(),i,0));
                     break;
-                case 3:
+                case 2:
                     team1.add(new Sniper(getName(),i,0));
                     break;
-                case 4:
+                case 3:
                     team1.add(new Spearman(getName(),i,0));
                     break;
-                case 5:
+                case 4:
                     team1.add(new Monk(getName(),i,0));
                     break;
-                case 6:
+                case 5:
                     team1.add(new Crossbowman(getName(),i,0));
                     break;
-                case 7:
+                case 6:
                     team1.add(new Peasant(getName(),i,0));
                     break;
-                case 8:
+                case 7:
                     team1.add(new Wizard(getName(),i,0));
                     break;
 
@@ -132,27 +128,24 @@ public class Main {
         for (int i = 0; i < teamCount; i++) {
             switch (new Random().nextInt(1,8)){
                 case 1:
-                    team2.add(new Archer(getName(),i,9));
-                    break;
-                case 2:
                     team2.add(new Robber(getName(),i,9));
                     break;
-                case 3:
+                case 2:
                     team2.add(new Sniper(getName(),i,9));
                     break;
-                case 4:
+                case 3:
                     team2.add(new Spearman(getName(),i,9));
                     break;
-                case 5:
+                case 4:
                     team2.add(new Monk(getName(),i,9));
                     break;
-                case 6:
+                case 5:
                     team2.add(new Crossbowman(getName(),i,9));
                     break;
-                case 7:
+                case 6:
                     team2.add(new Peasant(getName(),i,9));
                     break;
-                case 8:
+                case 7:
                     team2.add(new Wizard(getName(),i,9));
                     break;
             }
@@ -160,12 +153,23 @@ public class Main {
 
 
         for (Pers unit : team1){
-            System.out.printf("Name: %s, Class: %s, Position: %d,%d\n", unit.getName(), unit.getClass().getSimpleName(), unit.position.getX(), unit.position.getY());
+            System.out.printf("Имя: %s, Здоровье: %d, Класс: %s, Координаты: %d,%d\n", unit.getName(), unit.getHealth(), unit.getClass().getSimpleName(), unit.position.getX(), unit.position.getY());
         }
         System.out.println();
         for (Pers unit : team2){
-            System.out.printf("Name: %s, Class: %s, Position: %d,%d\n", unit.getName(), unit.getClass().getSimpleName(), unit.position.getX(), unit.position.getY());
+            System.out.printf("Имя: %s, Здоровье: %d, Класс: %s, Координаты: %d,%d\n", unit.getName(), unit.getHealth(), unit.getClass().getSimpleName(), unit.position.getX(), unit.position.getY());
         }
+
+
+        System.out.println("-".repeat(16));
+
+        ArrayList<Pers> all = new ArrayList<>();
+        all.addAll(team1);
+        all.addAll(team2);
+
+        all.sort((o1, o2) -> o2.getPriority()- o1.getPriority());
+
+        all.forEach(n->System.out.println(n.getInfo()));
     }
 
     private static String getName(){

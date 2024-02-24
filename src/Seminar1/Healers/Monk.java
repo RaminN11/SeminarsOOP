@@ -1,8 +1,19 @@
-package Seminar1;
+package Seminar1.Healers;
 
-public class Monk extends Pers{
+import Seminar1.Pers;
+
+import java.util.List;
+
+public class Monk extends Pers {
     public Monk(String name, Integer x, Integer y){
-        super(1,name,100,60,15,50,true,x,y);
+        super(name, x, y);
+        this.level = 1;
+        this.health = 100;
+        this.agility = 30;
+        this.strength = 20;
+        this.status = true;
+        this.priority = 2;
+        this.stamina = 50;
     }
 
     @Override
@@ -26,6 +37,12 @@ public class Monk extends Pers{
     }
 
     public void healing() {
+
+    }
+
+
+    @Override
+    public void step(List<Pers> targetTeam) {
 
     }
 }

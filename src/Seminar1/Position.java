@@ -28,7 +28,9 @@ public class Position {
     }
 
 
-    public double calculateDistance(Position other) {
-        return Math.sqrt(Math.pow(this.x - other.x, 2) + Math.pow(this.y - other.y, 2));
+    public Double getDistanse (Pers target) {
+        double targetDistanse = 0;
+        targetDistanse = Math.sqrt((Math.pow(target.position.getX() - this.getX(), 2)) + (Math.pow(target.position.getY() - this.getY(), 2)));
+        return targetDistanse;
     }
 }

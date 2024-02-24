@@ -1,8 +1,20 @@
-package Seminar1;
+package Seminar1.Warriors;
 
-public class Spearman extends Pers{
+import Seminar1.Pers;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Spearman extends Pers {
     public Spearman(String name, Integer x, Integer y){
-        super(1,name,100,60,50,30,true,x,y);
+        super(name, x, y);
+        this.priority = 2;
+        this.health = 100;
+        this.strength = 10;
+        this.agility = 20;
+        this.stamina = 65;
+        this.level = 1;
+        this.status = true;
     }
 
     @Override
@@ -23,6 +35,11 @@ public class Spearman extends Pers{
     @Override
     public String toString() {
         return String.format("Class: %s  Name: %s", this.getClass().getSimpleName(), getName());
+    }
+
+    @Override
+    public void step(List<Pers> targetTeam) {
+
     }
 
 }

@@ -1,8 +1,8 @@
 package Seminar1;
 
-import java.util.Random;
+import java.util.*;
 
-public abstract class Pers {
+public abstract class Pers implements Step{
     protected static Random r;
     protected int level;
     protected String name;
@@ -12,11 +12,12 @@ public abstract class Pers {
     protected int stamina;
     protected Boolean status;
     protected Position position;
+    protected int priority;
 
     static{
         Pers.r = new Random();
     }
-    public Pers(int level, String name, int health, int stamina,int strength,int agility, Boolean status,  Integer x, Integer y) {
+    public Pers(String name, Integer x, Integer y) {
         this.level = 1;
         this.name = name;
         this.health = 100;
@@ -25,6 +26,7 @@ public abstract class Pers {
         this.stamina = 50;
         this.status = true;
         this.position = new Position(x,y);
+        this.priority = 0;
     }
 
     public String getName(){
@@ -43,6 +45,7 @@ public abstract class Pers {
     public int getHealth(){
         return health;
     }
+    public void setHealth(int health){this.health = health;}
 
 
     protected String getInfo() {
@@ -65,12 +68,32 @@ public abstract class Pers {
         target.GetDamage(damage);
 
     }
-
-
+    public boolean isDead(){
+        if (this.getHealth() <= 0){
+            return false;
+        }
+        return true;
+    }
     protected void death(Pers target){
-        if (target.getHealth() <= 0){
+        if (target.getHealth() < 1){
             System.out.println("Ваш персонаж мертв");
         }
     }
+
+    public Pers nearestEnemy (List<Pers> targets) {
+        Queue<Pers> target = new LinkedList<>();
+        double minDistance = 10;
+        for (Pers hero : targets) {
+            if (position.getDistanse(hero) < minDistance) {
+                minDistance = position.getDistanse(hero);
+                target.add(hero);
+            }
+        }
+        return target.peek();
+    }
+
+    public int getPriority(){return priority;}
+
+    public Position getPosition(){return position;}
 
 }
