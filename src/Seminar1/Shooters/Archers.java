@@ -2,10 +2,12 @@ package Seminar1.Shooters;
 
 import Seminar1.Pers;
 
-public abstract class Archers extends Pers {
-    public Integer arrows;
+import java.util.List;
 
-    public Archers(String name, Integer x, Integer y) {
+public abstract class Archers extends Pers {
+    protected Integer arrows;
+
+    public Archers(String name, int x, int y) {
         super(name, x, y);
     }
 
@@ -15,6 +17,19 @@ public abstract class Archers extends Pers {
 
     public void setArrows(Integer arrows){
         this.arrows = arrows;
+    }
+    public void attac(Pers target){
+        int damage = r.nextInt(5, 15);
+        this.arrows--;
+        target.GetDamage(damage);
+    }
+    public void step(List<Pers> list, List<Pers> friends) {
+
+
+        if (!isDead() || getArrows() <= 0) return;
+        attac(nearestEnemy(list));
+        System.out.println(toString());
+
     }
 
 }

@@ -11,6 +11,7 @@ import Seminar1.Warriors.Spearman;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 /*
 Проанализировать персонажей "Крестьянин, Разбойник, Снайпер, Колдун, Копейщик, Арбалетчик, Монах".
@@ -151,17 +152,19 @@ public class Main {
             }
         }
 
-
+        System.out.println("Первая команда: ");
         for (Pers unit : team1){
             System.out.printf("Имя: %s, Здоровье: %d, Класс: %s, Координаты: %d,%d\n", unit.getName(), unit.getHealth(), unit.getClass().getSimpleName(), unit.position.getX(), unit.position.getY());
         }
         System.out.println();
+
+        System.out.println("Вторая команда: ");
         for (Pers unit : team2){
             System.out.printf("Имя: %s, Здоровье: %d, Класс: %s, Координаты: %d,%d\n", unit.getName(), unit.getHealth(), unit.getClass().getSimpleName(), unit.position.getX(), unit.position.getY());
         }
 
 
-        System.out.println("-".repeat(16));
+        System.out.println("-".repeat(36));
 
         ArrayList<Pers> all = new ArrayList<>();
         all.addAll(team1);
@@ -170,7 +173,38 @@ public class Main {
         all.sort((o1, o2) -> o2.getPriority()- o1.getPriority());
 
         all.forEach(n->System.out.println(n.getInfo()));
+        System.out.println("-".repeat(36));
+
+
+        Scanner scan = new Scanner(System.in);
+        boolean work = true;
+        while (work) {
+            if (scan.nextLine() == ""){
+
+                for (Pers element : all) {
+                    if (team1.contains(element)) {
+                        element.step(team2, team1);
+                    } else
+                        element.step(team1, team2);
+                }
+            } else work = false;
+        }
+        scan.close();
+
+//        for (Pers element : all) {
+//            if (team1.contains(element)) {
+//                element.step(team2, team1);
+//            } else element.step(team1, team2);
+//        }
+
+        for (Pers unit : all) {
+            System.out.printf("Имя: %s, Здоровье: %d, Класс: %s, Координаты: %d,%d\n", unit.getName(), unit.getHealth(), unit.getClass().getSimpleName(), unit.position.getX(), unit.position.getY());
+        }
+        System.out.println();
+
+        all.get(0).nearestEnemy(team2);
     }
+
 
     private static String getName(){
         return String.valueOf(Names.values()[new Random().nextInt(Names.values().length-1)]);

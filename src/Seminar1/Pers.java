@@ -11,13 +11,13 @@ public abstract class Pers implements Step{
     protected int agility;
     protected int stamina;
     protected Boolean status;
-    protected Position position;
+    public Position position;
     protected int priority;
 
     static{
         Pers.r = new Random();
     }
-    public Pers(String name, Integer x, Integer y) {
+    public Pers(String name, int x, int y) {
         this.level = 1;
         this.name = name;
         this.health = 100;
@@ -47,24 +47,22 @@ public abstract class Pers implements Step{
     }
     public void setHealth(int health){this.health = health;}
 
-
-    protected String getInfo() {
-        return String.format("Name: %s  Hp: %d  Type: %s", this.name, this.health, this.getClass().getSimpleName());
+    public String toString() {
+        return String.format("Class: %s  Name: %s hp: %s, Position %s", getClass().getSimpleName(), getName(), getHealth(), position.getPosition());
+    }
+    public String getInfo() {
+        String resStr = new String("Name: " + getName() + "   Health: " + getHealth() +"   Position: " + position.getPosition() + "   Status: " + getStatus());
+        return resStr;
     }
 
-    protected void print() {
-        System.out.println("Level:  " + level + "Name: " + name + "Health: " + health + "Stamina" + stamina);
-
-    }
-
-    protected void GetDamage(int damage) {
+    public void GetDamage(int damage) {
         if (this.health - damage > 0) {
             this.health -= damage;
         }
     }
 
     protected void attack(Pers target) {
-        int damage = Pers.r.nextInt(1,5);
+        int damage = Pers.r.nextInt(10,20);
         target.GetDamage(damage);
 
     }
@@ -81,15 +79,15 @@ public abstract class Pers implements Step{
     }
 
     public Pers nearestEnemy (List<Pers> targets) {
-        Queue<Pers> target = new LinkedList<>();
+        Pers target = null;
         double minDistance = 10;
         for (Pers hero : targets) {
-            if (position.getDistanse(hero) < minDistance) {
+            if (position.getDistanse(hero) < minDistance && hero.isDead()) {
                 minDistance = position.getDistanse(hero);
-                target.add(hero);
+                target = hero;
             }
         }
-        return target.peek();
+        return target;
     }
 
     public int getPriority(){return priority;}

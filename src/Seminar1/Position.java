@@ -19,18 +19,33 @@ public class Position {
         return list;
     }
 
-    public Integer getX() {
+    public int getX() {
         return x;
     }
 
-    public Integer getY() {
+    public int getY() {
         return y;
     }
 
+    public void setX(int x){this.x = x;}
 
-    public Double getDistanse (Pers target) {
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public double getDistanse (Pers target) {
         double targetDistanse = 0;
         targetDistanse = Math.sqrt((Math.pow(target.position.getX() - this.getX(), 2)) + (Math.pow(target.position.getY() - this.getY(), 2)));
         return targetDistanse;
+    }
+
+
+    public Position getDiff (Position targetPos){
+        return new Position(x - targetPos.getX(), y - targetPos.getY());
+    }
+
+
+    public boolean equals(Position target) {
+        return x == target.getX() && y == target.getY();
     }
 }

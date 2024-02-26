@@ -6,11 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Sniper extends Archers {
-    private final int arrows;
 
-    public Sniper(String name, Integer x, Integer y) {
+    public Sniper(String name, int x, int y) {
         super(name, x, y);
-        this.arrows = 5;
+        this.arrows = 6;
         this.priority = 3;
         this.health = 100;
         this.agility = 30;
@@ -36,20 +35,7 @@ public class Sniper extends Archers {
     }
     @Override
     public String toString() {
-        return String.format("Class: %s  Name: %s", this.getClass().getSimpleName(), getName());
+        return super.toString();
     }
 
-    @Override
-    public void step(List<Pers> list) {
-        if (this.isDead()) {
-            if (this.getArrows() > 1) {
-                this.attack(this.nearestEnemy(list));
-                System.out.printf("Прямо в цель! (Имя: %s, Класс: %s, Здоровье: %d)\n", this.getName(), this.getClass().getSimpleName(), this.getHealth());
-            }else {
-                System.out.printf("Мне нужны еще стрелы... (Имя: %s, Класс: %s, Здоровье: %d)\n", this.getName(), this.getClass().getSimpleName(), this.getHealth());
-            }
-        }
-
-
-    }
 }
