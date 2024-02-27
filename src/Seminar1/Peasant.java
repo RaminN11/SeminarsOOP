@@ -1,9 +1,11 @@
 package Seminar1;
 
+import Seminar1.Shooters.Archers;
+
 import java.util.List;
 import java.util.Scanner;
 
-public class Peasant extends Pers {
+public class Peasant extends Pers{
     public Peasant(String name, int x, int y){
         super(name, x, y);
         this.priority = 0;
