@@ -6,13 +6,17 @@ public abstract class Pers implements Step{
     protected static Random r;
     protected int level;
     protected String name;
-    protected int health;
+    public int maxHealth;
+
+    public int health;
     protected int strength;
     protected int agility;
     protected int stamina;
     protected Boolean status;
     public Position position;
     protected int priority;
+    public int hit;
+
 
     static{
         Pers.r = new Random();
@@ -20,13 +24,11 @@ public abstract class Pers implements Step{
     public Pers(String name, int x, int y) {
         this.level = 1;
         this.name = name;
-        this.health = 100;
-        this.strength = 30;
-        this.agility = 20;
-        this.stamina = 50;
+        this.maxHealth = this.health = health;
         this.status = true;
         this.position = new Position(x,y);
         this.priority = 0;
+        this.hit = hit;
     }
 
     public String getName(){
@@ -48,50 +50,57 @@ public abstract class Pers implements Step{
     public void setHealth(int health){this.health = health;}
 
     public String toString() {
-        return String.format("Class: %s  Name: %s hp: %s, Position %s", getClass().getSimpleName(), getName(), getHealth(), position.getPosition());
+        return name + ", \u2665: " + health + ",  ⚔ : " + hit;
     }
     public String getInfo() {
-        String resStr = new String("Name: " + getName() + "   Health: " + getHealth() +"   Position: " + position.getPosition() + "   Status: " + getStatus());
-        return resStr;
+        return "";
     }
 
-    public void GetDamage(int damage) {
-        if (this.health - damage > 0) {
-            this.health -= damage;
-        }
-    }
 
-    protected void attack(Pers target) {
-        int damage = Pers.r.nextInt(10,20);
-        target.GetDamage(damage);
+    public void Hit(int damage) {
+        this.health -= damage;
+        if (health < 0) {
+            health = 0;
+        }
+        if (health >= maxHealth) health = maxHealth;
 
     }
-    public boolean isDead(){
-        if (this.getHealth() <= 0){
-            return false;
-        }
-        return true;
+
+    public void attack(Pers target) {
+//        int damage = Pers.r.nextInt(20,40);
+//        target.Hit(damage);
+
     }
-    protected void death(Pers target){
-        if (target.getHealth() < 1){
-            System.out.println("Ваш персонаж мертв");
-        }
+
+
+    public void getHit(Pers pers1, Pers pers2){
+        pers1.health = pers1.health - pers2.hit;
     }
 
     public Pers nearestEnemy (List<Pers> targets) {
-        Pers target = null;
-        double minDistance = 10;
+        if (targets.isEmpty()) {
+            return null;
+        }
+
+        Pers nearest = null;
+        double minDistance = Double.MAX_VALUE;
+
         for (Pers hero : targets) {
-            if (position.getDistanse(hero) < minDistance && hero.isDead()) {
-                minDistance = position.getDistanse(hero);
-                target = hero;
+            double distance = position.getDistanse(hero.position);
+            if (distance < minDistance && hero.health > 0) {
+                minDistance = distance;
+                nearest = hero;
             }
         }
-        return target;
+
+        return nearest;
     }
 
     public int getPriority(){return priority;}
 
     public Position getPosition(){return position;}
 
+    public int getHp(){
+        return health;
+    };
 }

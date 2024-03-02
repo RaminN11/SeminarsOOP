@@ -8,35 +8,21 @@ public class Crossbowman extends Archers {
 
     public Crossbowman(String name, int x, int y){
         super(name, x, y);
-        this.arrows=6;
-        this.health = 100;
+        this.countArrow=10;
+        this.health = 150;
         this.level = 1;
         this.agility = 35;
         this.strength = 15;
         this.priority = 3;
         this.stamina = 45;
         this.status = true;
+        this.hit = 20;
 
     }
+
 
     @Override
-    protected void death(Pers target) {
-        super.death(target);
+    public String getInfo() {
+        return "Арбалетчик";
     }
-
-    @Override
-    public void GetDamage(int damage) {
-        super.GetDamage(damage);
-    }
-
-    @Override
-    protected void attack(Pers target) {
-        super.attack(target);
-    }
-
-    @Override
-    public String toString() {
-        return super.toString();
-    }
-
 }

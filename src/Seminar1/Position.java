@@ -4,20 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Position {
-    protected int x;
-    protected int y;
+    public int x;
+    public int y;
 
     public Position(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    public List<Integer> getPosition() {
-        List<Integer> list = new ArrayList<>();
-        list.add(x);
-        list.add(y);
-        return list;
+//    public List<Integer> getPosition() {
+//        List<Integer> list = new ArrayList<>();
+//        list.add(x);
+//        list.add(y);
+//        return list;
+//    }
+
+    @Override
+    public String toString(){
+        return "Position " + x + "," + y;
     }
+
 
     public int getX() {
         return x;
@@ -33,9 +39,8 @@ public class Position {
         this.y = y;
     }
 
-    public double getDistanse (Pers target) {
-        double targetDistanse = 0;
-        targetDistanse = Math.sqrt((Math.pow(target.position.getX() - this.getX(), 2)) + (Math.pow(target.position.getY() - this.getY(), 2)));
+    public double getDistanse (Position target) {
+        double targetDistanse = Math.sqrt(Math.pow(x - target.x, 2) + Math.pow(y - target.y, 2));
         return targetDistanse;
     }
 

@@ -89,124 +89,166 @@ import java.util.Scanner;
 
  */
 public class Main {
+    public static ArrayList<Pers> holyTeam = new ArrayList<>();
+    public static ArrayList<Pers> darkTeam = new ArrayList<>();
+    public static ArrayList<Pers> allTeam = new ArrayList<>();
     public static void main(String[] args) {
 
-        int teamCount = 10;
-        List<Pers> team1 = new ArrayList<>();
-        List<Pers> team2 = new ArrayList<>();
+        Random random = new Random();
 
-        for (int i = 0; i < teamCount; i++) {
-            switch (new Random().nextInt(1,8)){
-                case 1:
-                    team1.add(new Robber(getName(),i,0));
-                    break;
-                case 2:
-                    team1.add(new Sniper(getName(),i,0));
-                    break;
-                case 3:
-                    team1.add(new Spearman(getName(),i,0));
-                    break;
-                case 4:
-                    team1.add(new Monk(getName(),i,0));
-                    break;
-                case 5:
-                    team1.add(new Crossbowman(getName(),i,0));
-                    break;
-                case 6:
-                    team1.add(new Peasant(getName(),i,0));
-                    break;
-                case 7:
-                    team1.add(new Wizard(getName(),i,0));
-                    break;
+        init();
 
-
-            }
-
-        }
-
-
-
-        for (int i = 0; i < teamCount; i++) {
-            switch (new Random().nextInt(1,8)){
-                case 1:
-                    team2.add(new Robber(getName(),i,9));
-                    break;
-                case 2:
-                    team2.add(new Sniper(getName(),i,9));
-                    break;
-                case 3:
-                    team2.add(new Spearman(getName(),i,9));
-                    break;
-                case 4:
-                    team2.add(new Monk(getName(),i,9));
-                    break;
-                case 5:
-                    team2.add(new Crossbowman(getName(),i,9));
-                    break;
-                case 6:
-                    team2.add(new Peasant(getName(),i,9));
-                    break;
-                case 7:
-                    team2.add(new Wizard(getName(),i,9));
-                    break;
-            }
-        }
 
         System.out.println("Первая команда: ");
-        for (Pers unit : team1){
+        for (Pers unit : holyTeam){
             System.out.printf("Имя: %s, Здоровье: %d, Класс: %s, Координаты: %d,%d\n", unit.getName(), unit.getHealth(), unit.getClass().getSimpleName(), unit.position.getX(), unit.position.getY());
         }
         System.out.println();
 
         System.out.println("Вторая команда: ");
-        for (Pers unit : team2){
+        for (Pers unit : darkTeam){
             System.out.printf("Имя: %s, Здоровье: %d, Класс: %s, Координаты: %d,%d\n", unit.getName(), unit.getHealth(), unit.getClass().getSimpleName(), unit.position.getX(), unit.position.getY());
         }
 
 
         System.out.println("-".repeat(36));
 
-        ArrayList<Pers> all = new ArrayList<>();
-        all.addAll(team1);
-        all.addAll(team2);
 
-        all.sort((o1, o2) -> o2.getPriority()- o1.getPriority());
+        allTeam.addAll(holyTeam);
+        allTeam.addAll(darkTeam);
 
-        all.forEach(n->System.out.println(n.getInfo()));
+        allTeam.sort((o1, o2) -> o2.getPriority()- o1.getPriority());
+
+        allTeam.forEach(n->System.out.println(n.getInfo()));
         System.out.println("-".repeat(36));
 
 
-        Scanner scan = new Scanner(System.in);
-        boolean work = true;
-        while (work) {
-            if (scan.nextLine() == ""){
+        Scanner scanner = new Scanner(System.in);
+        boolean flag = true;
 
-                for (Pers element : all) {
-                    if (team1.contains(element)) {
-                        element.step(team2, team1);
-                    } else
-                        element.step(team1, team2);
-                }
-            } else work = false;
+        while (true) {
+
+            View.view();
+            scanner.nextLine();
+            int summ1HP = 0;
+            int summ2HP = 0;
+            for (Pers unit : holyTeam){
+                summ1HP += unit.getHp();
+            }
+            for (Pers unit : darkTeam){
+                summ2HP += unit.getHp();
+            }
+            if (summ1HP == 0){
+                System.out.println("Победила команда darkTeam");
+                flag = false;
+                break;
+            }
+            if (summ2HP == 0){
+                System.out.println("Победила команда holyTeam");
+                flag = false;
+                break;
+            }
+            for (Pers unit : allTeam) {
+                if (holyTeam.contains(unit)) unit.step(darkTeam, holyTeam);
+                else unit.step(holyTeam, darkTeam);
+            }
+
         }
-        scan.close();
 
-//        for (Pers element : all) {
-//            if (team1.contains(element)) {
-//                element.step(team2, team1);
-//            } else element.step(team1, team2);
-//        }
 
-        for (Pers unit : all) {
+
+
+        for (Pers unit : allTeam) {
             System.out.printf("Имя: %s, Здоровье: %d, Класс: %s, Координаты: %d,%d\n", unit.getName(), unit.getHealth(), unit.getClass().getSimpleName(), unit.position.getX(), unit.position.getY());
         }
         System.out.println();
 
-        all.get(0).nearestEnemy(team2);
+        allTeam.get(0).nearestEnemy(darkTeam);
     }
 
 
     private static String getName(){
         return String.valueOf(Names.values()[new Random().nextInt(Names.values().length-1)]);
     }
+
+    public static void init(){
+        Random random = new Random();
+        int teamcount = 10;
+        for (int i = 1; i < teamcount+1; i++) {
+            int val = random.nextInt(7);
+            int coordX1 = random.nextInt(10);
+            int coordX2 = random.nextInt(10);
+            Position xy1 = new Position(coordX1, 1);
+            Position xy2 = new Position(coordX2, 10);
+            System.out.println(xy1);
+            switch (val) {
+                case 0:
+                    holyTeam.add(new Crossbowman(getName(), i,1));
+                    break;
+                case 1:
+                    holyTeam.add(new Wizard(getName(), i,1));
+
+                    break;
+                case 2:
+                    holyTeam.add(new Monk(getName(),i,1));
+
+                    break;
+                case 3:
+                    holyTeam.add(new Robber(getName(), i,1));
+
+                    break;
+                case 4:
+                    holyTeam.add(new Peasant(getName(), i,1));
+
+                    break;
+                case 5:
+                    holyTeam.add(new Sniper(getName(), i,1));
+
+                    break;
+                case 6:
+                    holyTeam.add(new Spearman(getName(), i,1));
+
+                    break;
+            }
+        }
+        for (int i = 1; i < teamcount+1; i++) {
+            int val = random.nextInt(7);
+            int coordX1 = random.nextInt(10);
+            int coordX2 = random.nextInt(10);
+            Position xy1 = new Position(coordX1, 1);
+            Position xy2 = new Position(coordX2, 10);
+            System.out.println(xy1);
+            switch (val) {
+                case 0:
+
+                    darkTeam.add(new Crossbowman(getName(), i,10));
+                    break;
+                case 1:
+
+                    darkTeam.add(new Wizard(getName(), i,10));
+                    break;
+                case 2:
+
+                    darkTeam.add(new Monk(getName(), i,10));
+                    break;
+                case 3:
+
+                    darkTeam.add(new Robber(getName(), i,10));
+                    break;
+                case 4:
+
+                    darkTeam.add(new Peasant(getName(), i,10));
+                    break;
+                case 5:
+
+                    darkTeam.add(new Sniper(getName(), i,10));
+                    break;
+                case 6:
+
+                    darkTeam.add(new Spearman(getName(), i,10));
+                    break;
+            }
+        }
+    }
+
 }
