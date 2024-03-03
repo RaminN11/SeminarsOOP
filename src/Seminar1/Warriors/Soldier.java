@@ -16,6 +16,7 @@ public abstract class Soldier extends Pers {
     public void step(ArrayList<Pers> targetTeam, ArrayList<Pers> friends) {
         if (health<=0) return;
         Pers target = super.nearestEnemy(targetTeam);
+        if (target==null) return;
         if (position.getDistanse(target.position) < 2){
             target.Hit(this.hit);
             return;

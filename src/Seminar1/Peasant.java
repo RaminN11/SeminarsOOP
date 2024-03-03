@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Peasant extends Pers{
+    int countArrow;
+    public boolean flag;
     public Peasant(String name, int x, int y){
         super(name, x, y);
         this.priority = 0;
@@ -17,6 +19,8 @@ public class Peasant extends Pers{
         this.level = 1;
         this.stamina = 25;
         this.hit = 15;
+        flag = false;
+        countArrow = 10;
     }
 
 
@@ -31,6 +35,16 @@ public class Peasant extends Pers{
 
     @Override
     public void step(ArrayList<Pers> targetTeam, ArrayList<Pers> friends) {
+        if (health <= 0) return;
+        flag = false;
+    }
+
+    public int getCountArrow() {
+        return countArrow;
+    }
+    @Override
+    public String toString() {
+        return super.toString() + ", \u27b6 : " + countArrow;
     }
 
 }

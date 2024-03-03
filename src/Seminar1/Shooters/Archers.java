@@ -1,5 +1,6 @@
 package Seminar1.Shooters;
 
+import Seminar1.Peasant;
 import Seminar1.Pers;
 
 import java.util.ArrayList;
@@ -12,11 +13,11 @@ public abstract class Archers extends Pers {
         super(name, x, y);
     }
 
-    public Integer getArrows(){
+    public Integer getArrows() {
         return countArrow;
     }
 
-    public void setArrows(int arrows){
+    public void setArrows(int arrows) {
         this.countArrow = countArrow;
     }
 
@@ -29,7 +30,16 @@ public abstract class Archers extends Pers {
     public void step(ArrayList<Pers> targetTeam, ArrayList<Pers> friends) {
         if ((health <= 0) || (countArrow == 0)) return;
         Pers target = super.nearestEnemy(targetTeam);
+        if (target==null) return;
         target.Hit(this.hit);
+
+        for (Pers unit : friends) {
+            if (unit.getInfo().equals("Фермер") && !((Peasant) unit).flag) {
+                ((Peasant) unit).flag = true;
+                return;
+            }
+
+        }
         countArrow--;
     }
 
