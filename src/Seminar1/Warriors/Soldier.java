@@ -8,7 +8,8 @@ import java.util.List;
 
 public abstract class Soldier extends Pers {
     public Soldier(String name, int x, int y) {
-        super(name, x, y);
+        super(name,100,25,2, new Position(x,y));
+
     }
 
 

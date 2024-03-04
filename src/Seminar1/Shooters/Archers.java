@@ -2,6 +2,7 @@ package Seminar1.Shooters;
 
 import Seminar1.Peasant;
 import Seminar1.Pers;
+import Seminar1.Position;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,7 @@ public abstract class Archers extends Pers {
     protected Integer countArrow;
 
     public Archers(String name, int x, int y) {
-        super(name, x, y);
+        super(name,150,20,3,new Position(x,y));
     }
 
     public Integer getArrows() {

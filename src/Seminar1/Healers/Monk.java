@@ -6,7 +6,8 @@ import Seminar1.Position;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Monk extends Pers {
+public class Monk extends Magic {
+
     public Monk(String name, Integer x, Integer y){
         super(name, x, y);
         this.level = 1;
@@ -16,7 +17,8 @@ public class Monk extends Pers {
         this.status = true;
         this.priority = 2;
         this.stamina = 50;
-        this.hit = hit;
+        this.hit = 0;
+
     }
 
 
@@ -29,8 +31,8 @@ public class Monk extends Pers {
         return "Монах";
     }
 
-    @Override
-    public void step(ArrayList<Pers> targetTeam, ArrayList<Pers> friends) {
-
     }
-}
+
+
+    
+

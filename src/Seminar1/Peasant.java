@@ -10,7 +10,7 @@ public class Peasant extends Pers{
     int countArrow;
     public boolean flag;
     public Peasant(String name, int x, int y){
-        super(name, x, y);
+        super(name,150,15,0,new Position(x,y));
         this.priority = 0;
         this.health = 150;
         this.agility = 20;

@@ -5,7 +5,7 @@ import java.util.*;
 public abstract class Pers implements Step{
     protected static Random r;
     protected int level;
-    protected String name;
+    public String name;
     public int maxHealth;
 
     public int health;
@@ -21,13 +21,12 @@ public abstract class Pers implements Step{
     static{
         Pers.r = new Random();
     }
-    public Pers(String name, int x, int y) {
-        this.level = 1;
+    public Pers(String name, int health, int hit, int priority, Position position) {
         this.name = name;
         this.maxHealth = this.health = health;
         this.status = true;
-        this.position = new Position(x,y);
-        this.priority = 0;
+        this.position = position;
+        this.priority = priority;
         this.hit = hit;
     }
 

@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Wizard extends Pers {
+public class Wizard extends Magic {
+
     public Wizard(String name, int x, int y) {
         super(name, x, y);
         this.level = 1;
@@ -28,8 +29,5 @@ public class Wizard extends Pers {
         return "Волшебник";
     }
 
-    @Override
-    public void step(ArrayList<Pers> targetTeam, ArrayList<Pers> friends) {
-
     }
-}
+
